@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Shalom Alaka · Interactive Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#2b1500; --panel:#3d1f00; --rust:#7a2b00; --cream:#ffebcc;
+  --lilac:#d08cff; --lime:#d9eb7a; --maroon:#6b0a3a; --muted:#c9ad8a;
+  color-scheme:dark; box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--cream);font:400 1.05rem/1.6 "Bricolage Grotesque",system-ui,sans-serif}
+main{max-width:980px;margin:0 auto;padding:0 1.25rem 4rem}
+h1,h2,h3{font-weight:800;line-height:1.05;margin:0}
+h1{font-size:clamp(3rem,13vw,7.5rem);color:var(--lilac);letter-spacing:-.03em}
+h2{font-size:clamp(1.9rem,6vw,3rem);color:var(--lime);letter-spacing:-.02em;margin-bottom:.75rem}
+p{max-width:62ch;margin:.5rem 0}
+a{color:var(--lilac)}
+a:focus-visible,button:focus-visible,canvas:focus-visible{outline:3px solid var(--lime);outline-offset:3px}
+.hero{padding:4rem 0 2rem}
+.tag{font-size:1.25rem;max-width:30ch;margin-top:1rem}
+nav{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1.5rem}
+nav a{border:1.5px solid var(--lilac);border-radius:999px;padding:.4rem 1rem;text-decoration:none;color:var(--cream)}
+nav a:hover{background:var(--lilac);color:var(--bg)}
+.wave{width:100%;height:80px;margin-top:2rem}
+.wave path{fill:none;stroke:var(--lime);stroke-width:3;stroke-linecap:round;stroke-dasharray:900;stroke-dashoffset:900;animation:draw 3s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+section{padding:3.5rem 0 1rem;border-top:1px solid var(--rust);margin-top:2.5rem}
+.course{color:var(--muted);font-size:.95rem}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin:1.5rem 0 1rem}
+.node{font:inherit;font-weight:600;color:var(--cream);background:var(--panel);border:2px solid var(--rust);border-radius:14px;padding:.8rem 1rem;cursor:pointer;transition:transform .15s,border-color .15s}
+.node:hover{transform:translateY(-3px);border-color:var(--lilac)}
+.node[aria-pressed="true"]{background:var(--lilac);color:var(--bg);border-color:var(--lilac)}
+.arrow{color:var(--lime);font-size:1.4rem}
+.detail{background:var(--panel);border-left:5px solid var(--lime);border-radius:0 12px 12px 0;padding:1rem 1.25rem;min-height:5.5rem}
+.detail strong{color:var(--lime)}
+.hint{color:var(--muted);font-size:.9rem}
+.game{display:grid;gap:1.5rem;grid-template-columns:minmax(0,360px) 1fr;align-items:start;margin-top:1.5rem}
+@media(max-width:720px){.game{grid-template-columns:1fr}}
+canvas{width:100%;max-width:360px;aspect-ratio:3/4;display:block;border-radius:16px;border:3px solid var(--lilac);background:#1a0c00;touch-action:manipulation;cursor:pointer}
+.score{display:flex;gap:1.5rem;font-weight:800;color:var(--lime);margin-bottom:.5rem}
+.tiles{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));margin-top:1rem}
+.tile{background:var(--maroon);border-radius:14px;padding:1.1rem}
+.tile h3{font-size:1.15rem;color:var(--cream);margin-bottom:.4rem}
+.tile.empty{background:transparent;border:2px dashed var(--lilac);color:var(--muted)}
+.ph{background:transparent;border:2px dashed var(--lilac);border-radius:14px;padding:1.2rem;color:var(--muted);margin:1rem 0}
+.btn{display:inline-block;background:var(--lilac);color:var(--bg);font-weight:800;text-decoration:none;border-radius:999px;padding:.7rem 1.5rem;margin-top:1rem}
+@media(prefers-reduced-motion:reduce){.wave path{animation:none;stroke-dashoffset:0}.node{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<main>
+<header class="hero">
+  <h1>Shalom Alaka</h1>
+  <p class="tag">I build wearables that read the body, and design them so people understand them.</p>
+  <p class="course">Biomedical &amp; Electrical Engineering, Carleton University · Class of 2026</p>
+  <nav aria-label="Jump to a project">
+    <a href="#capstone">Capstone</a><a href="#emg">EMG game</a><a href="#nback">N-back</a><a href="#creative">Creative</a><a href="#contact">Contact</a>
+  </nav>
+  <svg class="wave" viewBox="0 0 900 80" preserveAspectRatio="none" aria-hidden="true"><path d="M0 40 H150 L170 40 L185 8 L205 72 L225 20 L240 40 H420 L440 40 L455 12 L475 68 L495 24 L510 40 H700 L720 40 L735 10 L755 70 L775 22 L790 40 H900"/></svg>
+</header>
+
+<section id="capstone">
+  <h2>Capstone: stress monitor for diabetes</h2>
+  <p class="course">SYSC 4907 · team of three</p>
+  <p>A wearable that tracks heart rate, HRV, respiration and skin temperature to spot stress-related changes that can affect glucose. Tap each step to see what happens there.</p>
+  <div class="flow" data-flow="capstone" role="group" aria-label="Capstone signal chain"></div>
+  <div class="detail" id="d-capstone" aria-live="polite"></div>
+  <div class="ph">Drop-in space: dashboard screenshot, breadboard photo and poster fair photo (add before publishing).</div>
+</section>
+
+<section id="emg">
+  <h2>EMG-controlled Flappy Bird</h2>
+  <p class="course">SYSC 3203 · Bioelectric Systems</p>
+  <p>In the real project, flexing a muscle became a mouse click. Here, a click or tap stands in for the flex. Play it, then tap through the signal chain below.</p>
+  <div class="game">
+    <div>
+      <div class="score"><span>Score <span id="sc">0</span></span><span>Best <span id="bs">0</span></span></div>
+      <canvas id="game" width="360" height="480" tabindex="0" role="img" aria-label="Mini Flappy Bird game. Click, tap, or press Space to flap."></canvas>
+      <p class="hint">Click, tap or press Space to “flex”.</p>
+    </div>
+    <div>
+      <div class="flow" data-flow="emg" role="group" aria-label="EMG signal chain"></div>
+      <div class="detail" id="d-emg" aria-live="polite"></div>
+      <div class="ph">Drop-in space: demo video, LTspice screenshot, link to the full report.</div>
+    </div>
+  </div>
+</section>
+
+<section id="nback">
+  <h2>N-back cognitive assessment</h2>
+  <p class="course">SYSC 2010 · Python + Lithic One motion sensor</p>
+  <p>Answer memory prompts with arm motions instead of buttons. The test adapts its difficulty as you go.</p>
+  <div class="flow" data-flow="nback" role="group" aria-label="N-back flow"></div>
+  <div class="detail" id="d-nback" aria-live="polite"></div>
+  <div class="ph">Drop-in space: demo video, GUI screenshot, links to source code and report.</div>
+</section>
+
+<section id="creative">
+  <h2>Creative work</h2>
+  <p>Engineering is the build. This is how I make it land with people.</p>
+  <div class="tiles">
+    <div class="tile"><h3>Itoju Mentoring</h3><p>Short-form video and graphics for Instagram, LinkedIn and TikTok. 18,400+ monthly views; Instagram grew from 200 to 500+ followers.</p></div>
+    <div class="tile"><h3>Marketing carousels</h3><p>Instagram carousels for a marketing blog, built in Canva from the founder’s briefs while keeping the brand look consistent.</p></div>
+    <div class="tile"><h3>Pinterest moodboards</h3><p>Curated boards on beauty, fashion and style, plus a personal page for outfits and looks.</p></div>
+    <div class="tile empty"><h3>Video reel</h3><p>Drop-in space for your best edits.</p></div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Let’s talk</h2>
+  <p>Open to biomedical, embedded and wearable roles.</p>
+  <a class="btn" href="mailto:alakashalom@gmail.com">alakashalom@gmail.com</a>
+  <p><a href="https://www.linkedin.com/in/shalom-alaka-9209b0256">LinkedIn</a></p>
+</section>
+</main>
+
+<script>
+const FLOWS={
+ capstone:[
+  ["Sensors","Heart rate and HRV from a MAX30102, respiration, and skin temperature from a TMP117. I integrated, tested and calibrated these, including hardware troubleshooting."],
+  ["ESP32","The microcontroller that reads all the sensors together in real time."],
+  ["Signal processing","Raw readings are cleaned and combined. I built the signal-processing features that turn four vital signs into one usable signal."],
+  ["Stress score","A live 0–100 stress score from the combined vital signs."],
+  ["Web dashboard","A live dashboard with charts and stress alerts, presented at the Carleton Capstone Poster Fair."]],
+ emg:[
+  ["Arm muscle","Flexing the muscle produces a small electrical signal."],
+  ["Electrodes","Skin electrodes pick up the muscle signal from the arm."],
+  ["Analog circuit","A 7-stage analog circuit conditions the signal. I simulated it in LTspice, then refined the hardware through repeated testing."],
+  ["Mouse click","The conditioned signal triggers a click command on the computer."],
+  ["Flappy Bird","Each flex makes the bird flap in real time."]],
+ nback:[
+  ["LED + tone prompt","The system shows a sequence of LED colours and tones."],
+  ["Arm motion","You answer match or no match with a set arm motion."],
+  ["Lithic One sensor","Accelerometer and gyroscope data detect which motion you made."],
+  ["Score","The Python app scores your answers and shows live progress in a GUI."],
+  ["Adapt difficulty","The N-back level adjusts as you perform."]]
+};
+document.querySelectorAll("[data-flow]").forEach(box=>{
+  const k=box.dataset.flow, det=document.getElementById("d-"+k), items=FLOWS[k], btns=[];
+  const show=i=>{btns.forEach((b,j)=>b.setAttribute("aria-pressed",j===i));
+    det.innerHTML="<strong>"+items[i][0]+".</strong> "+items[i][1];};
+  items.forEach((it,i)=>{
+    const b=document.createElement("button");b.className="node";b.type="button";b.textContent=it[0];
+    b.setAttribute("aria-pressed","false");b.onclick=()=>show(i);btns.push(b);box.appendChild(b);
+    if(i<items.length-1){const a=document.createElement("span");a.className="arrow";a.setAttribute("aria-hidden","true");a.textContent="›";box.appendChild(a);}
+  });
+  show(0);
+});
+
+/* Mini Flappy */
+const cv=document.getElementById("game"),cx=cv.getContext("2d"),W=360,H=480;
+const scEl=document.getElementById("sc"),bsEl=document.getElementById("bs");
+let bird,pipes,score,best=0,state="ready",frame=0;
+function reset(){bird={y:H/2,v:0};pipes=[];score=0;frame=0;scEl.textContent=0;}
+function flap(){
+  if(state==="over"){reset();state="ready";return;}
+  if(state==="ready")state="play";
+  bird.v=-6.2;
+}
+cv.addEventListener("pointerdown",e=>{e.preventDefault();flap();});
+cv.addEventListener("keydown",e=>{if(e.code==="Space"||e.code==="ArrowUp"){e.preventDefault();flap();}});
+window.addEventListener("keydown",e=>{if(e.code==="Space"&&document.activeElement===document.body&&inView()){e.preventDefault();flap();}});
+function inView(){const r=cv.getBoundingClientRect();return r.top<innerHeight&&r.bottom>0;}
+function step(){
+  if(state==="play"){
+    bird.v+=0.38;bird.y+=bird.v;frame++;
+    if(frame%95===1){pipes.push({x:W,gap:130+Math.random()*10,top:70+Math.random()*(H-270),done:false});}
+    pipes.forEach(p=>p.x-=2.4);
+    pipes=pipes.filter(p=>p.x>-60);
+    for(const p of pipes){
+      if(!p.done&&p.x+50<70){p.done=true;score++;scEl.textContent=score;}
+      if(70+13>p.x&&70-13<p.x+50&&(bird.y-13<p.top||bird.y+13>p.top+p.gap))end();
+    }
+    if(bird.y>H-13||bird.y<-20)end();
+  }
+}
+function end(){state="over";if(score>best){best=score;bsEl.textContent=best;}}
+function draw(){
+  cx.clearRect(0,0,W,H);
+  cx.strokeStyle="rgba(217,235,122,.25)";cx.lineWidth=2;cx.beginPath();
+  for(let x=0;x<=W;x+=6){const y=H-30+Math.sin((x+frame*2)/14)*6*(state==="play"?1:.3);x?cx.lineTo(x,y):cx.moveTo(x,y);}cx.stroke();
+  pipes.forEach(p=>{cx.fillStyle="#d9eb7a";cx.fillRect(p.x,0,50,p.top);cx.fillRect(p.x,p.top+p.gap,50,H);});
+  cx.fillStyle="#d08cff";cx.beginPath();cx.arc(70,bird.y,13,0,7);cx.fill();
+  cx.fillStyle="#2b1500";cx.beginPath();cx.arc(75,bird.y-4,3,0,7);cx.fill();
+  cx.fillStyle="#ffebcc";cx.font="800 22px 'Bricolage Grotesque',system-ui,sans-serif";cx.textAlign="center";
+  if(state==="ready")cx.fillText("Click to flex",W/2,H/2-60);
+  if(state==="over"){cx.fillText("Score "+score,W/2,H/2-60);cx.font="600 16px 'Bricolage Grotesque',system-ui,sans-serif";cx.fillText("Click to try again",W/2,H/2-30);}
+}
+reset();
+(function loop(){step();draw();requestAnimationFrame(loop);})();
+</script>
+</body>
+</html>
